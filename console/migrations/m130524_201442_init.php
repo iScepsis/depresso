@@ -46,13 +46,17 @@ class m130524_201442_init extends Migration
             'title' => $this->string()->notNull()->comment('Техническое название статьи'),
             'label' => $this->string()->notNull()->comment('Название статьи'),
             'content' => $this->text()->null()->comment('Контент статьи в виде html-разметки'),
+            'created_at' => $this->timestamp()->defaultExpression('NOW()')->notNull(),
             'views_count' => $this->integer()->notNull()->defaultValue(0)->comment('Количество просмотров'),
+            'likes_count' => $this->integer()->null()->defaultValue(0)->comment('Количество лайков'),
+            'dislikes_count' => $this->integer()->null()->defaultValue(0)->comment('Количество дизлайков'),
             'fid_user' => $this->integer()->notNull()->comment('id пользователя создавшего статью'),
             'is_active' => $this->boolean()->notNull()->defaultValue(0)->comment('Активна ли статья'),
         ]);
 
         $this->addCommentOnTable('ds_posts', 'Таблица со статьями');
         $this->addForeignKey('fk_posts_fid_category', 'ds_posts', 'fid_category', 'ds_categories', 'id');
+        $this->addForeignKey('fk_posts_fid_user', 'ds_posts', 'fid_user', '{{%user}}', 'id');
     }
 
     public function down()
