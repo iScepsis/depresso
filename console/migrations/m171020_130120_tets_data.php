@@ -9,9 +9,10 @@ class m171020_130120_tets_data extends Migration
     {
 
         $this->insert('{{%user}}', [
+            'id' => 1,
             'username' => 'admin',
-            'auth_key' => sha1('admin'),
-            'password_hash' => sha1('admin'),
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' =>  Yii::$app->security->generatePasswordHash('admin'),
             'email' => 'admin@mail.ru',
             'created_at' => time(),
             'updated_at' => time(),
@@ -26,7 +27,6 @@ class m171020_130120_tets_data extends Migration
           /*  [6, 'services','Услуги', '<p></p>', null, 3],
             [7, 'electricity','Электрооборудование', '<p>Докажи что ты служил в ВДВ</p>', null, 3],*/
         ]);
-        
         
         $this->insert('ds_posts', [
             'fid_category' => 1,
@@ -245,6 +245,7 @@ class m171020_130120_tets_data extends Migration
     {
         $this->delete('ds_posts');
         $this->delete('ds_categories');
+        $this->delete('{{%user}}');
     }
 
     /*
