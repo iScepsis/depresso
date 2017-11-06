@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "bower-asset/bootstrap": "^3.3",
         "npm-asset/jquery": "^2.2",
-        "bower-asset/ckeditor": "dev-full/4.7.x"
+        "bower-asset/ckeditor": "dev-full/4.7.x",
+        "mdmsoft/yii2-admin": "~2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
