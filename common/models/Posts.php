@@ -55,17 +55,24 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fid_category' => 'id категории к которой принадлежит статья',
+            'fid_category' => 'Категория',
             'title' => 'Техническое название статьи',
             'label' => 'Название статьи',
-            'content' => 'Контент статьи в виде html-разметки',
-            'created_at' => 'Created At',
-            'views_count' => 'Количество просмотров',
-            'likes_count' => 'Количество лайков',
-            'dislikes_count' => 'Количество дизлайков',
-            'fid_user' => 'id пользователя создавшего статью',
-            'is_active' => 'Активна ли статья',
+            'content' => 'Контент',
+            'created_at' => 'Создано',
+            'views_count' => 'Просмотров',
+            'likes_count' => 'Лайков',
+            'dislikes_count' => 'Дизлайков',
+            'fid_user' => 'Автор',
+            'is_active' => 'Активность',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (empty($this->fid_user)) $this->fid_user = Yii::$app->user->id;
+
+        return parent::beforeSave($insert);
     }
 
     /**

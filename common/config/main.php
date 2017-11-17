@@ -9,7 +9,14 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'formatter' => [
+            'dateFormat' => 'd.m.Y',
+            'datetimeFormat' => 'd.m.Y H:i:s',
+            'timeFormat' => 'H:i:s',
 
+            'locale' => 'ru-RU', //your language locale
+            'defaultTimeZone' => 'Europe/Moscow', // time zone
+        ],
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -55,16 +62,18 @@ return [
             'mainLayout' => '@backend/views/layouts/main.php',
         ],
     ],
-    /*'as access' => [
+    'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
             'admin/*',
+            'posts/*',
+            'categories/*'
             // The actions listed here will be allowed to everyone including guests.
             // So, 'admin/*' should not appear here in the production, of course.
             // But in the earlier stages of your development, you may probably want to
             // add a lot of actions here until you finally completed setting up rbac,
             // otherwise you may not even take a first step.
         ]
-    ],*/
+    ],
 ];

@@ -10,6 +10,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
+use mdm\admin\components\MenuHelper;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -29,14 +31,17 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Админка',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'Статьи', 'url' => ['/posts/index']],
+        ['label' => 'Категории', 'url' => ['/categories/index']],
+        ['label' => 'Доступы', 'url' => ['/admin']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -62,6 +67,14 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
+
+
+<?php
+        echo Nav::widget([
+        'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
+        ]); ?>
+
         <?= $content ?>
     </div>
 </div>

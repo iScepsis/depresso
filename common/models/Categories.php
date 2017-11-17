@@ -16,7 +16,7 @@ use Yii;
  *
  * @property Categories $parent
  * @property Categories[] $categories
- * @property DsPosts[] $dsPosts
+ * @property Posts[] $posts
  */
 class Categories extends \yii\db\ActiveRecord
 {
@@ -50,11 +50,11 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Техническое название категории',
-            'label' => 'Название категории',
-            'description' => 'Краткое описание категории',
+            'title' => 'Техническое название',
+            'label' => 'Название',
+            'description' => 'Краткое описание ',
             'parent_id' => 'id родительской категории',
-            'is_active' => 'Активна ли категория',
+            'is_active' => 'Активность',
         ];
     }
 
@@ -77,8 +77,8 @@ class Categories extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDsPosts()
+    public function getPosts()
     {
-        return $this->hasMany(DsPosts::className(), ['fid_category' => 'id']);
+        return $this->hasMany(Posts::className(), ['fid_category' => 'id']);
     }
 }

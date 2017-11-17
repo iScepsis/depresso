@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Posts;
 use common\models\PostsSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,20 @@ class PostsController extends Controller
     public function behaviors()
     {
         return [
+           /* 'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index', 'update', 'create'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
