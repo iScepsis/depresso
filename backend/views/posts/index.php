@@ -1,5 +1,8 @@
 <?php
 
+use common\models\Categories;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -25,16 +28,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'fid_category',
-            'title',
             'label',
-            'content:ntext',
-            // 'created_at',
-            // 'views_count',
-            // 'likes_count',
-            // 'dislikes_count',
-            // 'fid_user',
-            // 'is_active',
+            [                      // the owner name of the model
+                'label' => 'Категория',
+                'attribute' => 'category.label',
+                'filter' => Select2::widget([
+                    'name' => 'PostsSearch[category]',
+                   // 'value' => '',
+                    'data' => ArrayHelper::map(Categories::find()->all(), 'label', 'label'),
+                    'options' => ['placeholder' => 'Все категории']
+                ])
+            ],
+           // 'title',
+
+            //'content:ntext',
+             'created_at',
+             'views_count',
+             'likes_count',
+             'dislikes_count',
+             [                      // the owner name of the model
+                'label' => 'Автор',
+                'value' => 'user.username',
+             ],
+             'is_active',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

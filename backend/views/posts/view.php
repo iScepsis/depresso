@@ -29,7 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'fid_category',
+            [
+                'label' => 'Категория',
+                'value' => $model->category->label,
+            ],
+            'category.label',
             'title',
             'label',
             'content:ntext',
@@ -37,7 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'views_count',
             'likes_count',
             'dislikes_count',
-            'fid_user',
+            [
+                'label' => 'Автор',
+                'value' => $model->user->username,
+            ],
             'is_active',
         ],
     ]) ?>

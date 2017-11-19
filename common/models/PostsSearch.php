@@ -12,6 +12,9 @@ use common\models\Posts;
  */
 class PostsSearch extends Posts
 {
+
+    public $category;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class PostsSearch extends Posts
     {
         return [
             [['id', 'fid_category', 'views_count', 'likes_count', 'dislikes_count', 'fid_user', 'is_active'], 'integer'],
-            [['title', 'label', 'content', 'created_at'], 'safe'],
+            [['title', 'label', 'content', 'created_at','category'], 'safe'],
         ];
     }
 
@@ -41,13 +44,18 @@ class PostsSearch extends Posts
      */
     public function search($params)
     {
-        $query = Posts::find();
+        $query = Posts::find()->joinWith('category');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['category.label'] = [
+            'asc' => [Categories::tableName().'.label' => SORT_ASC],
+            'desc' => [Categories::tableName().'.label' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -67,11 +75,13 @@ class PostsSearch extends Posts
             'dislikes_count' => $this->dislikes_count,
             'fid_user' => $this->fid_user,
             'is_active' => $this->is_active,
+       //     'category' => $this->category,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'label', $this->label])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', Categories::tableName().'.label', $this->category]);
 
         return $dataProvider;
     }
