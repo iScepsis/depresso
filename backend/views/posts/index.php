@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Categories;
+use common\models\User;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -33,10 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Категория',
                 'attribute' => 'category.label',
                 'filter' => Select2::widget([
-                    'name' => 'PostsSearch[category]',
-                   // 'value' => '',
+                    'name' => 'PostsSearch[category.label]',
+                    'value' => Yii::$app->request->get('PostsSearch')['category.label'],
                     'data' => ArrayHelper::map(Categories::find()->all(), 'label', 'label'),
-                    'options' => ['placeholder' => 'Все категории']
+                    'options' => ['placeholder' => 'Все категории'],
+                    'pluginOptions' => ['allowClear' => true]
                 ])
             ],
            // 'title',
@@ -48,9 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
              'dislikes_count',
              [                      // the owner name of the model
                 'label' => 'Автор',
-                'value' => 'user.username',
+                'attribute' => 'user.username',
+                'filter' => Select2::widget([
+                    'name' => 'PostsSearch[user.username]',
+                    'value' => Yii::$app->request->get('PostsSearch')['user.username'],
+                    'data' => ArrayHelper::map(User::find()->all(), 'username', 'username'),
+                    'options' => ['placeholder' => 'Все авторы'],
+                    'pluginOptions' => ['allowClear' => true]
+                ])
              ],
-             'is_active',
+             'is_active:boolean',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

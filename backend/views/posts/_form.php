@@ -12,8 +12,9 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\Posts */
 /* @var $form yii\widgets\ActiveForm */
-
-
+$this->registerJsFile('@web/js/ckeditor/plugins/base64image/plugin.js');
+$this->registerJs("CKEDITOR.plugins.addExternal('base64image');");
+//
 ?>
 
 
@@ -36,13 +37,18 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->widget(CKEditor::className(), [
-        'options' => [
-                'rows' => 6,
-                'height' => '600px'
-        ],
-        'preset' => 'standard'
-    ]); ?>
+    <?= $form->field($model, 'content')->widget(CKEditor::className(), ['preset' => 'custom', 'clientOptions' => [
+        'extraPlugins' => 'base64image',
+        'toolbarGroups' => [
+            ['name' => 'undo'],
+            ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+            ['name' => 'colors'],
+            ['name' => 'links', 'groups' => ['links', 'insert']],
+            ['name' => 'others', 'groups' => ['others', 'about']],
+
+            ['name' => 'base64image']
+        ]
+    ]]); ?>
 
     <?= $form->field($model, 'created_at')->widget(DateTimePicker::className(), [
         'language' => 'ru',

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\CategoriesSearch;
 use Yii;
 use common\models\Categories;
 use yii\data\ActiveDataProvider;
@@ -35,11 +36,11 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Categories::find(),
-        ]);
+        $searchModel = new CategoriesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

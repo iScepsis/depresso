@@ -5,22 +5,21 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Posts;
+use common\models\Categories;
 
 /**
- * PostsSearch represents the model behind the search form about `common\models\Posts`.
+ * CategoriesSearch represents the model behind the search form about `common\models\Categories`.
  */
-class PostsSearch extends Posts
+class CategoriesSearch extends Categories
 {
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'fid_category', 'views_count', 'likes_count', 'dislikes_count', 'fid_user', 'is_active'], 'integer'],
-            [['title', 'label', 'content', 'created_at'], 'safe'],
+            [['id', 'parent_id', 'is_active'], 'integer'],
+            [['title', 'label', 'description'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class PostsSearch extends Posts
      */
     public function search($params)
     {
-        $query = Posts::find()->joinWith(['category', 'user']);
+        $query = Categories::find()->joinWith('parent pt');
 
         // add conditions that should always apply here
 
@@ -50,15 +49,10 @@ class PostsSearch extends Posts
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['category.label'] = [
+        $dataProvider->sort->attributes['parent.label'] = [
             'asc' => [Categories::tableName().'.label' => SORT_ASC],
             'desc' => [Categories::tableName().'.label' => SORT_DESC],
         ];
-        $dataProvider->sort->attributes['user.username'] = [
-            'asc' => [User::tableName().'.username' => SORT_ASC],
-            'desc' => [User::tableName().'.username' => SORT_DESC],
-        ];
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -70,21 +64,14 @@ class PostsSearch extends Posts
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'fid_category' => $this->fid_category,
-            'created_at' => $this->created_at,
-            'views_count' => $this->views_count,
-            'likes_count' => $this->likes_count,
-            'dislikes_count' => $this->dislikes_count,
-            'fid_user' => $this->fid_user,
+            'parent_id' => $this->parent_id,
             'is_active' => $this->is_active,
-            Categories::tableName().'.label' => Yii::$app->request->get('PostsSearch')['category.label'],
-            User::tableName().'.username' => Yii::$app->request->get('PostsSearch')['user.username'],
+            Categories::tableName().'.label' => Yii::$app->request->get('CategoriesSearch')['parent.label'],
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'label', $this->label])
-            ->andFilterWhere(['like', 'content', $this->content]);
-           // ->andFilterWhere(['like', Categories::tableName().'.label', Yii::$app->request->get('PostsSearch')['category.label'],]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

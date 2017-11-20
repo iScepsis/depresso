@@ -31,9 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'label',
-            'description',
-            'parent_id',
-            'is_active',
+            'description:html',
+            //'parent.label',
+            [
+                'label' => 'Родительская категория',
+                'value' => $model->parent->label,
+            ],
+            'is_active:boolean',
         ],
     ]) ?>
 

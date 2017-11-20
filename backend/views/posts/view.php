@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'category.label',
             'title',
             'label',
-            'content:ntext',
+            'content:html',
             'created_at',
             'views_count',
             'likes_count',

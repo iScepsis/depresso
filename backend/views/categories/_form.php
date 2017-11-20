@@ -1,5 +1,8 @@
 <?php
 
+use common\models\Categories;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,9 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
+    <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
+        'name' => 'parent_id',
+        'value' => $model->id,
+        'data' => ArrayHelper::map(Categories::find()->where(['<>', 'id', $model->id])->all(), 'id', 'label'),
+        'options' => ['placeholder' => 'Все категории'],
+        'pluginOptions' => ['allowClear' => true]
+    ]) ?>
 
-    <?= $form->field($model, 'is_active')->textInput() ?>
+    <?= $form->field($model, 'is_active')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
