@@ -2,17 +2,40 @@
 
 /* @var $this yii\web\View */
 
+use yii\bootstrap\Carousel;
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <?php
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+    $carousel = [
+        [
+            'content' => '<img src="images/kumamon-kumamoto-prefecture.jpg"/>',
+            'caption' => '<h1>Заголовок</h1><p>Какой-то дополнительный текст</p><p><a href="/article/link/1" class="btn btn-primary">Подробнее <span class="glyphicon glyphicon-chevron-right"></a></p>',
+            'options' => []
+        ],
+        [
+            'content' => '<img src="images/peyzazh-devushka-ryzhaya-reka.jpg"/>',
+            'caption' => '',
+            'options' => []
+        ],
+        [
+            'content' => '<img src="images/vinograd-grozd-listia-osen-boke.jpg"/>',
+            'caption' => '',
+            'options' => []
+        ]
+    ];
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+    echo Carousel::widget([
+        'items' => $carousel,
+        'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
+        'controls' => [
+            '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
+            '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
+        ]
+    ]);?>
 
     <div class="body-content">
 

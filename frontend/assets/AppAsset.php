@@ -3,6 +3,7 @@
 namespace frontend\assets;
 
 use yii\web\AssetBundle;
+use yii\bootstrap;
 
 /**
  * Main frontend application asset bundle.
