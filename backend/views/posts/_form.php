@@ -12,8 +12,8 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\Posts */
 /* @var $form yii\widgets\ActiveForm */
-$this->registerJsFile('@web/js/ckeditor/plugins/base64image/plugin.js');
-$this->registerJs("CKEDITOR.plugins.addExternal('base64image');");
+//$this->registerJsFile('@web/js/ckeditor/plugins/base64image/plugin.js');
+//$this->registerJs("CKEDITOR.plugins.addExternal('base64image');");
 //
 ?>
 
@@ -38,7 +38,7 @@ $this->registerJs("CKEDITOR.plugins.addExternal('base64image');");
     <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->widget(CKEditor::className(), ['preset' => 'custom', 'clientOptions' => [
-        'extraPlugins' => 'base64image',
+       // 'extraPlugins' => 'base64image',
         'toolbarGroups' => [
             ['name' => 'undo'],
             ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
@@ -46,7 +46,7 @@ $this->registerJs("CKEDITOR.plugins.addExternal('base64image');");
             ['name' => 'links', 'groups' => ['links', 'insert']],
             ['name' => 'others', 'groups' => ['others', 'about']],
 
-            ['name' => 'base64image']
+       //     ['name' => 'base64image']
         ]
     ]]); ?>
 
