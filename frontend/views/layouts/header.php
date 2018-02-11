@@ -9,7 +9,7 @@ use yii\bootstrap\Html;
             <?=
 
             Html::a(
-                Html::img('images/logo.png', ['height' => '100px']),
+                Html::img('@web/images/logo.png', ['height' => '100px']),
                 'index'); ?>
         </div>
         <div class="col-md-6">

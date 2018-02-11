@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\CategoriesSearch;
+use common\models\search\CategoriesSearch;
 use Yii;
 use common\models\Categories;
 use yii\data\ActiveDataProvider;

@@ -36,7 +36,7 @@ class VerticalMenu extends Widget {
         $html = "<div class='btn-group btn-group-vertical btn-group-vertical-full-width'>";
         foreach ($items as $item) {
             //TODO: make url
-            $html .= Html::a($item['label'], '#', [
+            $html .= Html::a($item['label'], ['categories/index', 'id' => $item['id']], [
                 'role' => 'button',
                 'class' => "btn btn-{$this->variant}"]);
         }
