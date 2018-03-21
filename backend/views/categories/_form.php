@@ -9,6 +9,13 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Categories */
 /* @var $form yii\widgets\ActiveForm */
+
+$categoriesList = Categories::find();
+if (!$model->isNewRecord) {
+    $categoriesList->where(['<>', 'id', $model->id]);
+}
+$categoriesList = $categoriesList->orderBy('label')->asArray()->all();
+
 ?>
 
 <div class="categories-form">
@@ -24,7 +31,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
         'name' => 'parent_id',
         'value' => $model->id,
-        'data' => ArrayHelper::map(Categories::find()->where(['<>', 'id', $model->id])->all(), 'id', 'label'),
+        'data' => ArrayHelper::map($categoriesList, 'id', 'label'),
         'options' => ['placeholder' => 'Все категории'],
         'pluginOptions' => ['allowClear' => true]
     ]) ?>

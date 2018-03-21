@@ -11,6 +11,7 @@ use Yii;
  * @property integer $fid_category
  * @property string $title
  * @property string $label
+ * @property string $preview
  * @property string $content
  * @property string $created_at
  * @property integer $views_count
@@ -40,7 +41,7 @@ class Posts extends \yii\db\ActiveRecord
         return [
             [['fid_category', 'title', 'label', 'fid_user'], 'required'],
             [['fid_category', 'views_count', 'likes_count', 'dislikes_count', 'fid_user', 'is_active'], 'integer'],
-            [['content'], 'string'],
+            [['content', 'preview'], 'string'],
             [['created_at'], 'safe'],
             [['title', 'label'], 'string', 'max' => 255],
             [['fid_category'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['fid_category' => 'id']],
@@ -58,6 +59,7 @@ class Posts extends \yii\db\ActiveRecord
             'fid_category' => 'Категория',
             'title' => 'Техническое название статьи',
             'label' => 'Название статьи',
+            'preview' => 'Превью',
             'content' => 'Контент',
             'created_at' => 'Создано',
             'views_count' => 'Просмотров',

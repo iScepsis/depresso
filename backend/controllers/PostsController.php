@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Posts;
-use common\models\PostsSearch;
+use common\models\search\PostsSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

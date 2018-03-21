@@ -37,6 +37,19 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'preview')->widget(CKEditor::className(), ['preset' => 'custom', 'clientOptions' => [
+        // 'extraPlugins' => 'base64image',
+        'toolbarGroups' => [
+            ['name' => 'undo'],
+            ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+            ['name' => 'colors'],
+            ['name' => 'links', 'groups' => ['links', 'insert']],
+            ['name' => 'others', 'groups' => ['others', 'about']],
+
+            //     ['name' => 'base64image']
+        ]
+    ]]); ?>
+
     <?= $form->field($model, 'content')->widget(CKEditor::className(), ['preset' => 'custom', 'clientOptions' => [
        // 'extraPlugins' => 'base64image',
         'toolbarGroups' => [

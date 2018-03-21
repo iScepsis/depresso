@@ -36,10 +36,10 @@ AppAsset::register($this);
         ]) ?>
         <?= Alert::widget() ?>
         <div class="row">
-            <aside class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+            <aside class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                 <?= $this->render('aside_left') ?>
             </aside>
-            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                 <?= $content ?>
             </div>
 

@@ -45,6 +45,7 @@ class m130524_201442_init extends Migration
             'fid_category' => $this->integer()->notNull()->comment('id категории к которой принадлежит статья'),
             'title' => $this->string()->notNull()->comment('Техническое название статьи'),
             'label' => $this->string()->notNull()->comment('Название статьи'),
+            'preview' => $this->text()->null()->comment('Превью статьи в виде html-разметки'),
             'content' => $this->text()->null()->comment('Контент статьи в виде html-разметки'),
             'created_at' => $this->timestamp()->defaultExpression('NOW()')->notNull(),
             'views_count' => $this->integer()->notNull()->defaultValue(0)->comment('Количество просмотров'),

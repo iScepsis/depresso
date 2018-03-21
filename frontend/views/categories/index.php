@@ -25,7 +25,7 @@ use yii\widgets\LinkPager;
             <?= Html::a($model->label, ['posts/view', 'id' => $model->id]) ?>
         </div>
         <div class="post-preview">
-            <?= $model->content ?>
+            <?= $model->preview;  ?>
         </div>
         <div class="post-footer">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

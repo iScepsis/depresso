@@ -13,6 +13,8 @@ class PostsController extends Controller
     public function actionView($id){
         $post = Posts::findOne($id);
         if (!empty($post)) {
+           $post->views_count++;
+           $post->save();
            return $this->render('view', [
                'post' => $post
            ]);

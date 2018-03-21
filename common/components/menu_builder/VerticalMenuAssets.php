@@ -11,6 +11,7 @@ class VerticalMenuAssets extends AssetBundle {
         'css/vertical-menu.css',
     ];
     public $js = [
+        'js/vertical-menu.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
