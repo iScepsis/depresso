@@ -10,7 +10,7 @@ use yii\bootstrap\Html;
 
             Html::a(
                 Html::img('@web/images/logo.png', ['height' => '100px']),
-                'index'); ?>
+                ['site/index']); ?>
         </div>
         <div class="col-md-6">
             <h3 class="text-muted">Another web-blog, from another grumpy developer...</h3>

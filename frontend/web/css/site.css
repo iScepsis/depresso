@@ -114,3 +114,23 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+/*===================== КАТЕГОРИИ ===============================*/
+/*---------------- Списки постов ------------------*/
+.post-main {
+    margin-bottom: 20px;
+    border-bottom: 1px solid grey;
+}
+
+.post-header {
+    padding: 5px;
+}
+
+.post-header a {
+    font-size: 20px;
+}
+
+.post-footer {
+    color: grey;
+    font-size: 12px;
+}

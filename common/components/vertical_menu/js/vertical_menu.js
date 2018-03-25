@@ -1,9 +1,9 @@
 // Dropdown Menu
-var dropdown = document.querySelectorAll('.dropdown');
-var dropdownArray = Array.prototype.slice.call(dropdown,0);
-dropdownArray.forEach(function(el){
-    var button = el.querySelector('a[data-toggle="dropdown"]'),
-        menu = el.querySelector('.dropdown-menu'),
+var vm_dropdown = document.querySelectorAll('.vm_dropdown');
+var vm_dropdownArray = Array.prototype.slice.call(vm_dropdown,0);
+vm_dropdownArray.forEach(function(el){
+    var button = el.querySelector('a[data-toggle="vm_dropdown"]'),
+        menu = el.querySelector('.vm_dropdown-menu'),
         arrow = button.querySelector('i.icon-arrow');
 
     button.onclick = function(event) {
@@ -22,7 +22,7 @@ dropdownArray.forEach(function(el){
             event.preventDefault();
         }
     };
-})
+});
 
 Element.prototype.hasClass = function(className) {
     return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);

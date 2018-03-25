@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use yii\bootstrap\Carousel;
+use yii\bootstrap\Html;
 
 $this->title = 'My Yii Application';
 ?>
@@ -12,17 +13,17 @@ $this->title = 'My Yii Application';
 
     $carousel = [
         [
-            'content' => '<img src="images/kumamon-kumamoto-prefecture.jpg"/>',
+            'content' => Html::img('@web/images/kumamon-kumamoto-prefecture.jpg'),
             'caption' => '<h1>Заголовок</h1><p>Какой-то дополнительный текст</p><p><a href="/article/link/1" class="btn btn-primary">Подробнее <span class="glyphicon glyphicon-chevron-right"></a></p>',
             'options' => []
         ],
         [
-            'content' => '<img src="images/peyzazh-devushka-ryzhaya-reka.jpg"/>',
+            'content' => Html::img('@web/images/peyzazh-devushka-ryzhaya-reka.jpg'),
             'caption' => '',
             'options' => []
         ],
         [
-            'content' => '<img src="images/vinograd-grozd-listia-osen-boke.jpg"/>',
+            'content' => Html::img('@web/images/vinograd-grozd-listia-osen-boke.jpg'),
             'caption' => '',
             'options' => []
         ]

@@ -37,7 +37,9 @@ class m130524_201442_init extends Migration
         ]);
 
         $this->addCommentOnTable('ds_categories', 'Таблица с категориями, к которым могут принадлежать статьи');
+        $this->createIndex('idx_categories_parent_id', 'ds_categories', 'parent_id');
         $this->addForeignKey('fk_fid_parent_category', 'ds_categories', 'parent_id', 'ds_categories', 'id');
+
 
         //Статьи
         $this->createTable('ds_posts', [
@@ -56,12 +58,41 @@ class m130524_201442_init extends Migration
         ]);
 
         $this->addCommentOnTable('ds_posts', 'Таблица со статьями');
+        $this->createIndex('idx_posts_fid_category',  'ds_posts', 'fid_category');
+        $this->createIndex('idx_posts_fid_user', 'ds_posts', 'fid_user');
         $this->addForeignKey('fk_posts_fid_category', 'ds_posts', 'fid_category', 'ds_categories', 'id');
         $this->addForeignKey('fk_posts_fid_user', 'ds_posts', 'fid_user', '{{%user}}', 'id');
+
+
+        //Комментарии
+        $this->createTable('ds_comments', [
+            'id' => $this->primaryKey(),
+            'fid_post' => $this->integer()->notNull()->comment('id статьи к которой был оставлен данный комментарий'),
+            'fid_user' => $this->integer()->notNull()->comment('id пользователя оставившего комментарий'),
+            'content' => $this->text()->notNull()->comment('Текст комментария'),
+            'parent_id' => $this->integer()->null()->comment('id родительского комментария'),
+            'created_at' => $this->timestamp()->defaultExpression('NOW()')->notNull()->comment('Время создания'),
+            'is_ban' => $this->boolean()->notNull()->defaultValue(0)->comment('Комментарий нарушает правила ресурса и был удален'),
+            'likes_count' => $this->integer()->null()->defaultValue(0)->comment('Количество лайков'),
+        ]);
+
+        $this->addCommentOnTable('ds_comments', 'Таблица с комментариями');
+        $this->createIndex('idx_comments_fid_post',  'ds_comments', 'fid_post');
+        $this->createIndex('idx_comments_fid_user', 'ds_comments', 'fid_user');
+        $this->addForeignKey('fk_comments_fid_post', 'ds_comments', 'fid_post', 'ds_posts', 'id');
+        $this->addForeignKey('fk_comments_fid_user', 'ds_comments', 'fid_user', '{{%user}}', 'id');
     }
 
     public function down()
     {
+        $this->dropIndex('idx_categories_parent_id', 'ds_categories');
+        $this->dropIndex('idx_posts_fid_category',  'ds_posts');
+        $this->dropIndex('idx_posts_fid_user', 'ds_posts');
+        $this->dropIndex('idx_comments_fid_post',  'ds_comments');
+        $this->dropIndex('idx_comments_fid_user', 'ds_comments');
+
+
+        $this->dropTable('ds_comments');
         $this->dropTable('ds_posts');
         $this->dropTable('ds_categories');
         $this->dropTable('{{%user}}');

@@ -49,4 +49,8 @@ return [
 
     ],
     'params' => $params,
+    'modules' => [
+        'admin' => require(__DIR__ . '/../../common/config/rbac-module.php'),
+    ],
+    'as access' => require(__DIR__ . '/../../common/config/rbac-access.php'),
 ];

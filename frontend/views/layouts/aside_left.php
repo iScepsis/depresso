@@ -1,7 +1,5 @@
 <?php
-use common\components\menu_builder\VerticalMenu;
+use common\components\vertical_menu\VerticalMenu;
 ?>
-
-
 
 <?= VerticalMenu::widget(); ?>
