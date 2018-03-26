@@ -78,6 +78,6 @@ class Comments extends \yii\db\ActiveRecord
     }
 
     public static function getCommentsForPost($id){
-        return self::find()->where(['fid_post' => $id])->all();
+        return self::find()->joinWith('user')->where(['fid_post' => $id])->all();
     }
 }

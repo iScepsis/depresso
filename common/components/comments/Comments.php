@@ -8,7 +8,9 @@
 
 namespace common\components\comments;
 
+use dosamigos\ckeditor\CKEditor;
 use yii\base\Component;
+use yii\bootstrap\ActiveForm;
 use \yii\bootstrap\Widget;
 use \common\models\Comments as CommentModel;
 
@@ -37,6 +39,16 @@ class Comments extends Component {
 
     }
 
+    public function createCommentModel(int $post_id, int $user_id, int $comment_id = null ){
+        $comment = new CommentModel();
+        $comment->fid_post = $post_id;
+        $comment->fid_user = $user_id;
+        if (!empty($comment_id)) $comment->parent_id = $comment_id;
+
+        return $comment;
+        //return $form;
+    }
+
     protected function buildHtml(CommentModel $comment){
         $html =  "<div class='comment'>";
         $html .= $this->buildCommentHeader($comment);
@@ -63,7 +75,10 @@ class Comments extends Component {
     }
 
     protected function getComments($post_id){
-        $this->comments = CommentModel::getCommentsForPost($post_id);
+        $this->comments = CommentModel::find()
+            ->joinWith('user')
+            ->where(['fid_post' => $post_id])
+            ->all();
     }
 
 
