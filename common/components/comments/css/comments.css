@@ -1,0 +1,22 @@
+.comment {
+    border: 1px solid #515151;
+    margin-bottom: 3px;
+}
+
+.comment-header {
+    background-color: #515151;
+    font-size: 10pt;
+    color: white;
+    padding: 3px;
+}
+
+.comment-footer {
+    font-size: 10pt;
+    background-color: lightgrey;
+    padding: 3px;
+}
+
+.comment-body {
+    font-size: 11pt;
+    padding: 3px;
+}

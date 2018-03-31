@@ -1,34 +1,31 @@
 <?php
 
-use common\components\comments\Comments;
-use dosamigos\ckeditor\CKEditor;
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
+use common\components\comments\Comments as CommentsComponent;
+use yii\widgets\Pjax;
+use \common\models\Comments as CommentModel;
 
 /* @var $this yii\web\View */
 /* @var $post common\models\Posts */
-
-$comments = new Comments(['view' => $this]);
+/* @var $comments CommentsComponent */
 
 ?>
 
-<div>
-    <h2><?= $post->label ?></h2>
-    <div class="content-container">
-        <?= $post->content ?>
-    </div>
-    <div class="comments-wrap">
-        <?= $comments->showCommentsForPost($post->id); ?>
-    </div>
-    <div>
-        <?php
-        $comment = $comments->createCommentModel($post->id, 1);
-        $form = ActiveForm::begin();
-        ?>
-        <?= $form->field($comment, 'content')->widget(CKEditor::className(), [
-            'options' => ['rows' => 6],
-            'preset' => 'basic'
-        ])->label('Оставить комментарий'); ?>
-        <?php ActiveForm::end() ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2><?= $post->label ?></h2>
+        <div class="content-container">
+            <?= $post->content ?>
+        </div>
     </div>
 </div>
+
+
+
+
+<?= $this->render("@frontend/views/comments/index", [
+    'post_id' => $post->id,
+    'commentsComponent' => $comments,
+    'commentModel' => new CommentModel(['fid_post' => $post->id])
+]); ?>
+
+

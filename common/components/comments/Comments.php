@@ -1,17 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Scepsis
- * Date: 24.03.2018
- * Time: 18:33
- */
-
 namespace common\components\comments;
 
-use dosamigos\ckeditor\CKEditor;
 use yii\base\Component;
-use yii\bootstrap\ActiveForm;
-use \yii\bootstrap\Widget;
 use \common\models\Comments as CommentModel;
 
 class Comments extends Component {
@@ -39,37 +29,40 @@ class Comments extends Component {
 
     }
 
-    public function createCommentModel(int $post_id, int $user_id, int $comment_id = null ){
+    public function createCommentModel(int $post_id, int $comment_id = null ){
         $comment = new CommentModel();
         $comment->fid_post = $post_id;
-        $comment->fid_user = $user_id;
+        //$comment->fid_user = $user_id;
         if (!empty($comment_id)) $comment->parent_id = $comment_id;
 
         return $comment;
-        //return $form;
     }
 
     protected function buildHtml(CommentModel $comment){
-        $html =  "<div class='comment'>";
-        $html .= $this->buildCommentHeader($comment);
-        $html .= "<div class='comment-body'>{$comment->content}</div>";
-        $html .= "<div class='comment-footer'></div>";
+        $html =  "<div class='row'>";
+            $html .=  "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>";
+                $html .=  "<div class='comment'>";
+                $html .= $this->buildCommentHeader($comment);
+                $html .= "<div class='comment-body'>{$comment->content}</div>";
+                $html .= $this->buildCommentFooter($comment);
+                $html .= "</div>";
+            $html .= "</div>";
         $html .= "</div>";
         return $html;
     }
 
     protected function buildCommentHeader(CommentModel $comment){
         $html = "<div class='comment-header'>";
-        $html .= "<div class='col-md-6'>{$comment->user->username}</div>";
-        $html .= "<div class='col-md-6'>{$comment->created_at}</div>";
+            $html .= "<div><b>{$comment->user->username}</b></div>";
+            $html .= "<div>{$comment->created_at}</div>";
         $html .= "</div>";
         return $html;
     }
 
     protected function buildCommentFooter(CommentModel $comment){
         $html = "<div class='comment-footer'>";
-        $html .= "<div class='col-md-6'>{$comment->likes_count}</div>";
-        $html .= "<div class='col-md-6'>Ответить</div>";
+            $html .= "<div>{$comment->likes_count}</div>";
+            $html .= "<div>Ответить</div>";
         $html .= "</div>";
         return $html;
     }
