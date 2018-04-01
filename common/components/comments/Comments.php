@@ -53,16 +53,22 @@ class Comments extends Component {
 
     protected function buildCommentHeader(CommentModel $comment){
         $html = "<div class='comment-header'>";
-            $html .= "<div><b>{$comment->user->username}</b></div>";
-            $html .= "<div>{$comment->created_at}</div>";
+            $html .= "<div class='row'>";
+                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'><b>{$comment->user->username}</b></div>";
+                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right'>{$comment->created_at}</div>";
+            $html .= "</div>";
         $html .= "</div>";
         return $html;
     }
 
     protected function buildCommentFooter(CommentModel $comment){
         $html = "<div class='comment-footer'>";
-            $html .= "<div>{$comment->likes_count}</div>";
-            $html .= "<div>Ответить</div>";
+            $html .= "<div class='row'>";
+                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>{$comment->likes_count}</div>";
+                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right'>
+                                <a href='#comment-form' onclick='setAnswerForComment({$comment->id});'>Ответить</a>
+                          </div>";
+            $html .= "</div>";
         $html .= "</div>";
         return $html;
     }

@@ -8,8 +8,14 @@ use yii\widgets\Pjax;
 
 ?>
 
+
 <?php Pjax::begin(['enablePushState' => false, 'timeout' => Yii::$app->params['pjaxTimeout']]); ?>
 
+<?php
+    $commentCount = CommentModel::find()->where(['fid_post' => $post_id])->andWhere(['!=', 'is_ban', 1])->count();
+?>
+
+<h4><u>Комментарии</u> (<?= $commentCount ?>):</h4>
 <!-- Вывод списка комментариев к статье -->
 <?= $this->render("_view", [
     'post_id' => $post_id,

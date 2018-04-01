@@ -8,7 +8,7 @@ use yii\bootstrap\Html;
 
 ?>
 
-<div class="comment-form">
+<div id="comment-form">
     <?php
     //TODO: Передавать реальный id пользователя
    // $comment = $comments->createCommentModel($post_id);
@@ -21,6 +21,8 @@ use yii\bootstrap\Html;
     ])->label('Оставить комментарий'); ?>
 
     <?= $form->field($comment, 'fid_post')->hiddenInput()->label(false); ?>
+
+    <?= $form->field($comment, 'parent_id')->hiddenInput()->label(false); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save-comment-btn']) ?>

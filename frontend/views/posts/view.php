@@ -18,8 +18,7 @@ use \common\models\Comments as CommentModel;
         </div>
     </div>
 </div>
-
-
+<hr>
 
 
 <?= $this->render("@frontend/views/comments/index", [
