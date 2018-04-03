@@ -10,8 +10,6 @@ use yii\bootstrap\Html;
 
 <div id="comment-form">
     <?php
-    //TODO: Передавать реальный id пользователя
-   // $comment = $comments->createCommentModel($post_id);
     $form = ActiveForm::begin(['action' => ['comments/create'], 'options' => ['data-pjax' => true]]);
     ?>
 

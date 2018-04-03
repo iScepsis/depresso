@@ -1,7 +1,6 @@
 <?php
 
 use common\components\comments\Comments as CommentsComponent;
-use yii\widgets\Pjax;
 use \common\models\Comments as CommentModel;
 
 /* @var $this yii\web\View */
