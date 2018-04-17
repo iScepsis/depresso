@@ -1,6 +1,7 @@
 <?php
 namespace common\components\comments;
 
+use Yii;
 use yii\base\Component;
 use \common\models\Comments as CommentModel;
 
@@ -38,6 +39,11 @@ class Comments extends Component {
         return $comment;
     }
 
+    /**
+     * Строим html для отдельно взятого комментария
+     * @param CommentModel $comment
+     * @return string
+     */
     protected function buildHtml(CommentModel $comment){
         $html =  "<div class='row'>";
             $html .=  "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>";
@@ -51,7 +57,12 @@ class Comments extends Component {
         return $html;
     }
 
-    protected function buildCommentHeader(CommentModel $comment){
+    /**
+     * Строим шапку комментария
+     * @param CommentModel $comment
+     * @return string
+     */
+    protected function buildCommentHeader(CommentModel $comment):string {
         $html = "<div class='comment-header'>";
             $html .= "<div class='row'>";
                 $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'><b>{$comment->user->username}</b></div>";
@@ -61,18 +72,41 @@ class Comments extends Component {
         return $html;
     }
 
-    protected function buildCommentFooter(CommentModel $comment){
+    /**
+     * Строим подвал комментария
+     * @param CommentModel $comment
+     * @return string
+     */
+    protected function buildCommentFooter(CommentModel $comment):string {
         $html = "<div class='comment-footer'>";
             $html .= "<div class='row'>";
                 $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>{$comment->likes_count}</div>";
-                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right'>
-                                <a href='#comment-form' onclick='setAnswerForComment({$comment->id});'>Ответить</a>
-                          </div>";
+                $html .= "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right'>";
+                    $html .= $this->addAnswerBtn($comment);
+                 $html .= "</div>";
             $html .= "</div>";
         $html .= "</div>";
         return $html;
     }
 
+    /**
+     * Добавляем кнопку ответа на комментарий, если автор комментария не текущий пользователь
+     * @param CommentModel $comment
+     * @return string
+     */
+    protected function addAnswerBtn(CommentModel $comment):string {
+        $html = "";
+        //TODO: раскомментить условие
+      //  if ($comment->fid_user != Yii::$app->user->id && !Yii::$app->user->isGuest) {
+            $html .= "<a href='#comment-form' onclick='setAnswerForComment({$comment->id});'>Ответить</a>";
+      //  }
+        return $html;
+    }
+
+    /**
+     * Получаем все комментарии для указанного поста
+     * @param $post_id
+     */
     protected function getComments($post_id){
         $this->comments = CommentModel::find()
             ->joinWith('user')

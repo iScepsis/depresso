@@ -9,6 +9,7 @@ use yii\bootstrap\Html;
 ?>
 
 <div id="comment-form">
+    <div class="answer-to"> </div>
     <?php
     $form = ActiveForm::begin(['action' => ['comments/create'], 'options' => ['data-pjax' => true]]);
     ?>
