@@ -4,6 +4,7 @@ namespace common\components\comments;
 use Yii;
 use yii\base\Component;
 use \common\models\Comments as CommentModel;
+use yii\helpers\Html;
 
 class Comments extends Component {
 
@@ -98,7 +99,9 @@ class Comments extends Component {
         $html = "";
         //TODO: раскомментить условие
       //  if ($comment->fid_user != Yii::$app->user->id && !Yii::$app->user->isGuest) {
-            $html .= "<a href='#comment-form' onclick='setAnswerForComment({$comment->id});'>Ответить</a>";
+            $html .= Html::a('Ответить', '#comment-form', [
+                'onclick' => "setAnswerForComment({$comment->id}, '{$comment->user->username}');"
+            ]);
       //  }
         return $html;
     }

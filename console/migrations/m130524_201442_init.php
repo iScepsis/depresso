@@ -71,6 +71,7 @@ class m130524_201442_init extends Migration
             'fid_user' => $this->integer()->notNull()->comment('id пользователя оставившего комментарий'),
             'content' => $this->text()->notNull()->comment('Текст комментария'),
             'parent_id' => $this->integer()->null()->comment('id родительского комментария'),
+            'depth' => $this->integer(10)->defaultValue(0)->comment('Глубина комментария'),
             'created_at' => $this->timestamp()->defaultExpression('NOW()')->notNull()->comment('Время создания'),
             'is_ban' => $this->boolean()->notNull()->defaultValue(0)->comment('Комментарий нарушает правила ресурса и был удален'),
             'likes_count' => $this->integer()->null()->defaultValue(0)->comment('Количество лайков'),

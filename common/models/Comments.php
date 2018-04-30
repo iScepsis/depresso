@@ -12,6 +12,7 @@ use Yii;
  * @property integer $fid_user
  * @property string $content
  * @property integer $parent_id
+ * @property integer $depth
  * @property string $created_at
  * @property integer $is_ban
  * @property integer $likes_count
@@ -36,7 +37,7 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             [['fid_post', 'fid_user', 'content'], 'required'],
-            [['fid_post', 'fid_user', 'parent_id', 'is_ban', 'likes_count'], 'integer'],
+            [['fid_post', 'fid_user', 'parent_id', 'depth', 'is_ban', 'likes_count'], 'integer'],
             [['content'], 'string'],
             [['created_at'], 'safe'],
             [['fid_post'], 'exist', 'skipOnError' => true, 'targetClass' => Posts::className(), 'targetAttribute' => ['fid_post' => 'id']],
@@ -55,6 +56,7 @@ class Comments extends \yii\db\ActiveRecord
             'fid_user' => 'id пользователя оставившего комментарий',
             'content' => 'Текст комментария',
             'parent_id' => 'id родительского комментария',
+            'depth' => 'Глубина комментария',
             'created_at' => 'Время создания',
             'is_ban' => 'Комментарий нарушает правила ресурса и был удален',
             'likes_count' => 'Количество лайков',
@@ -79,5 +81,13 @@ class Comments extends \yii\db\ActiveRecord
 
     public static function getCommentsForPost($id){
         return self::find()->joinWith('user')->where(['fid_post' => $id])->all();
+    }
+
+    public static function getDepthForID($commentId):int{
+        if (is_int($commentId)) {
+           return self::findOne($commentId)->depth;
+        } else {
+            return 0;
+        }
     }
 }
