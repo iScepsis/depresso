@@ -51,7 +51,7 @@ return [
     ],
     'params' => $params,
     'modules' => [
-        'admin' => require(__DIR__ . '/../../common/config/rbac-module.php'),
+        'admin' => require(__DIR__ . '/rbac-module.php'),
     ],
-    'as access' => require(__DIR__ . '/../../common/config/rbac-access.php'),
+    'as access' => require(__DIR__ . '/rbac-access.php'),
 ];
